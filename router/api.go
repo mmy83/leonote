@@ -11,8 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-	"leonote/app/api/check"
-	"leonote/app/api/user"
+	"leonote/app/http/api/check"
+	"leonote/app/http/api/user"
 	_ "leonote/docs"
 )
 

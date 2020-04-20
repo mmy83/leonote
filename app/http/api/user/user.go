@@ -9,7 +9,7 @@ package user
 
 import (
 	"github.com/gin-gonic/gin"
-	"leonote/model"
+	"leonote/app/model"
 	"log"
 	"strconv"
 )
