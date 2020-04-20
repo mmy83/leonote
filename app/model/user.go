@@ -9,7 +9,7 @@ package model
 
 import (
 	"leonote/config"
-	"leonote/util"
+	"leonote/database"
 	"time"
 )
 
@@ -31,13 +31,13 @@ func (u *User) TableName() string {
 
 func (u *User) Get(id int64) (bool,error){
 	u.ID = id
-	has, err := util.Engine.Get(u)
+	has, err := database.Engine.Get(u)
 	return has, err
 }
 
 func (u *User) List() ([]User,error){
 
 	users := make([]User,0)
-	err := util.Engine.Limit(config.CfgPage.GetInt("pageSize"),0).Find(&users)
+	err := database.Engine.Limit(config.CfgPage.GetInt("pageSize"),0).Find(&users)
 	return users,err
 }

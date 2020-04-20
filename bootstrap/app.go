@@ -11,7 +11,7 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"leonote/config"
-	"leonote/util"
+	"leonote/database"
 	"log"
 	"net/http"
 	"os"
@@ -23,7 +23,7 @@ func AppRun(){
 
 	r := gin.New()
 
-	util.InitDatabase()
+	database.InitDatabase()
 
 	r = InitRouter(r)
 
