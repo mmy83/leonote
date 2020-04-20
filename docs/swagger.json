@@ -1,0 +1,76 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "license": {}
+    },
+    "paths": {
+        "/api/user/:id": {
+            "get": {
+                "security": [
+                    {
+                        "": []
+                    }
+                ],
+                "description": "获取用户",
+                "tags": [
+                    "api"
+                ],
+                "summary": "获取用户",
+                "responses": {
+                    "200": {
+                        "description": "{\"message\": \"pong\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/check/health": {
+            "get": {
+                "description": "健康状况",
+                "consumes": [
+                    "text/html"
+                ],
+                "produces": [
+                    "text/html"
+                ],
+                "tags": [
+                    "check"
+                ],
+                "summary": "健康状况 HealthCheck shows OK as the ping-pong result.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/check/ping": {
+            "get": {
+                "security": [
+                    {
+                        "": []
+                    }
+                ],
+                "description": "ping",
+                "tags": [
+                    "check"
+                ],
+                "summary": "ping",
+                "responses": {
+                    "200": {
+                        "description": "{\"message\": \"pong\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/user/:id:
+    get:
+      description: 获取用户
+      responses:
+        "200":
+          description: '{"message": "pong"}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 获取用户
+      tags:
+      - api
+  /check/health:
+    get:
+      consumes:
+      - text/html
+      description: 健康状况
+      produces:
+      - text/html
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 健康状况 HealthCheck shows OK as the ping-pong result.
+      tags:
+      - check
+  /check/ping:
+    get:
+      description: ping
+      responses:
+        "200":
+          description: '{"message": "pong"}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: ping
+      tags:
+      - check
+swagger: "2.0"
