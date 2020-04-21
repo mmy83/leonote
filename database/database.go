@@ -12,6 +12,7 @@ import (
 	"github.com/go-xorm/xorm"
 	"leonote/config"
 	"log"
+	"xorm.io/core"
 )
 
 var Engine *xorm.EngineGroup
@@ -22,10 +23,12 @@ func InitDatabase(){
 	dbConfig := config.CfgDb.GetStringSlice("uri")
 
 	var err error
-
 	Engine, err = xorm.NewEngineGroup(dbType, dbConfig)
 	if err != nil {
 		log.Fatalf("database error: %s\n", err)
 	}
+
+	Engine.Logger().SetLevel(core.LOG_DEBUG)
+	Engine.ShowSQL(true)
 
 }

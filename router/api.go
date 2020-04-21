@@ -11,8 +11,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"leonote/app/http/api"
 	"leonote/app/http/api/check"
-	"leonote/app/http/api/user"
 	_ "leonote/docs"
 )
 
@@ -23,8 +23,8 @@ func InitApiRouter(r *gin.Engine) *gin.Engine {
 
 
 
-	r.GET("/api/user/:id", user.GetUser)
-	r.GET("/api/user", user.List)
+	r.GET("/api/user/:id", api.ControllerUser.GetUser)
+	r.GET("/api/user", api.ControllerUser.List)
 
 
 

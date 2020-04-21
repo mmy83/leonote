@@ -5,14 +5,27 @@
 @Software: GoLand
 */
 
-package user
+package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"leonote/app/model"
+	"leonote/app/service"
+	"leonote/app/serviceimpl"
 	"log"
 	"strconv"
 )
+
+var ControllerUser *User
+
+type User struct {
+	userService service.User
+}
+
+func init(){
+	ControllerUser = &User{
+		userService: serviceimpl.New(),
+	}
+}
 
 // 获取用户
 // @Summary 获取用户
@@ -21,10 +34,9 @@ import (
 // @Success 200 {string} string "{"message": "pong"}"
 // @Router /api/user/:id [get]
 // @Security
-func GetUser(c *gin.Context){
-	user := &model.User{}
+func (u *User)GetUser(c *gin.Context){
 	id,_ := strconv.ParseInt(c.Param("id"), 10, 64)
-	has,err := user.Get(id)
+	user,has,err := u.userService.GetUser(id)
 
 	if err!=nil{
 		log.Fatalf("err: %s\n", err)
@@ -44,9 +56,8 @@ func GetUser(c *gin.Context){
 // @Success 200 {string} string "{"message": "pong"}"
 // @Router /api/user [get]
 // @Security
-func List(c *gin.Context)  {
-	user := &model.User{}
-	users,err := user.List()
+func (u *User)List(c *gin.Context)  {
+	users,err := u.userService.GetList()
 	if err != nil {
 		log.Fatalf("list err: %s\n", err)
 	}

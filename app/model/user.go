@@ -8,8 +8,6 @@
 package model
 
 import (
-	"leonote/config"
-	"leonote/database"
 	"time"
 )
 
@@ -27,17 +25,4 @@ type User struct {
 
 func (u *User) TableName() string {
 	return "leo_users"
-}
-
-func (u *User) Get(id int64) (bool,error){
-	u.ID = id
-	has, err := database.Engine.Get(u)
-	return has, err
-}
-
-func (u *User) List() ([]User,error){
-
-	users := make([]User,0)
-	err := database.Engine.Limit(config.CfgPage.GetInt("pageSize"),0).Find(&users)
-	return users,err
 }
