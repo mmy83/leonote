@@ -9,7 +9,7 @@ package api
 
 import "leonote/app/service"
 
-var ControllerNoteBook *service.NoteBook
+var CNoteBook *service.NoteBook
 
 
 

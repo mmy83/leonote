@@ -15,14 +15,14 @@ import (
 	"strconv"
 )
 
-var ControllerUser *User
+var CUser *User
 
 type User struct {
 	userService service.User
 }
 
 func init(){
-	ControllerUser = &User{
+	CUser = &User{
 		userService: serviceimpl.New(),
 	}
 }

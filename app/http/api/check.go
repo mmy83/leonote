@@ -1,11 +1,11 @@
 /*
 @Time : 2020/4/18 5:41 下午
 @Author : mmy83
-@File : health.go
+@File : check.go
 @Software: GoLand
 */
 
-package check
+package api
 
 import "github.com/gin-gonic/gin"
 
