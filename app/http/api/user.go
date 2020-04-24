@@ -23,7 +23,7 @@ type User struct {
 
 func init(){
 	CUser = &User{
-		userService: serviceimpl.New(),
+		userService: serviceimpl.NewUser(),
 	}
 }
 

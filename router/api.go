@@ -12,18 +12,39 @@ import (
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"leonote/app/http/api"
+	"leonote/app/middleware"
 	_ "leonote/docs"
 )
 
 func InitApiRouter(r *gin.Engine) *gin.Engine {
 
-	r.GET("/check/ping", api.Ping)
-	r.GET("/check/health", api.HealthCheck)
 
 
+	auth := r.Group("/api/v1")
 
-	r.GET("/api/user/:id", api.CUser.GetUser)
-	r.GET("/api/user", api.CUser.List)
+	auth.GET("/login", api.Login)
+
+	auth.Use(middleware.LoginAuth())
+	{
+
+		auth.GET("/check/ping", api.Ping)
+		auth.GET("/check/health", api.HealthCheck)
+
+		auth.GET("/user/:id", api.CUser.GetUser)
+		auth.GET("/user", api.CUser.List)
+
+
+		auth.GET("/notebook/:id", api.CNoteBook.GetNoteBook)
+		auth.GET("/notebook", api.CNoteBook.List)
+
+	}
+
+	admin := r.Group("/api/v1/admin")
+	admin.Use(middleware.IsAdminAuth())
+	{
+		admin.GET("/user/:id", api.CUser.GetUser)
+		admin.GET("/user", api.CUser.List)
+	}
 
 
 

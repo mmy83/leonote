@@ -16,11 +16,13 @@ import (
 
 
 type user struct {
-
+	pageSize int
 }
 
-func New() service.User{
-	return &user{}
+func NewUser() service.User{
+	return &user{
+		pageSize: config.CfgPage.GetInt("pageSize"),
+	}
 }
 
 func (u *user) GetUser(id int64) (*model.User,bool,error)  {
@@ -32,6 +34,15 @@ func (u *user) GetUser(id int64) (*model.User,bool,error)  {
 
 func (u *user) GetList() ([]*model.User,error)  {
 	users := make([]*model.User,0)
-	err := database.Engine.Limit(config.CfgPage.GetInt("pageSize"),0).Find(&users)
+	err := database.Engine.Limit(u.pageSize,0).Find(&users)
 	return users,err
 }
+
+
+func (u *user)GetUserByUserName(username string) (*model.User,bool,error){
+	user:= &model.User{}
+	user.UserName = username
+	has, err := database.Engine.Get(user)
+	return user,has, err
+}
+

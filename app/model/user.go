@@ -26,3 +26,4 @@ type User struct {
 func (u *User) TableName() string {
 	return "leo_users"
 }
+
