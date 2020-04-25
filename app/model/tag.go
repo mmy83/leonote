@@ -10,7 +10,7 @@ package model
 import "time"
 
 type Tag struct {
-	ID int64 `xorm:"id" jsonresponse:"id"`
+	Id int64 `xorm:"id pk autoincr" jsonresponse:"id"`
 	UserId int64 `xorm:"user_id" jsonresponse:"user_id"`
 	TagName string `xorm:"tag_name" jsonresponse:"tag_name"`
 	Count int64 `xorm:"count" jsonresponse:"count"`

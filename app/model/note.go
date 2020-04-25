@@ -10,7 +10,7 @@ package model
 import "time"
 
 type Note struct {
-	ID int64	`xorm:"id" jsonresponse:"id"`
+	Id int64	`xorm:"id pk autoincr" jsonresponse:"id"`
 	NoteBookId int64	`xorm:"notebook_id" jsonresponse:"notebook_id"`
 	UserId int64 `xorm:"user_id" jsonresponse:"user_id"`
 	Title string `xorm:"title" jsonresponse:"title"`

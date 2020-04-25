@@ -36,6 +36,7 @@ func init(){
 	msg[200706] = Message{ Code: 200706, Msg: "获取数据失败！" }
 	msg[200707] = Message{ Code: 200707, Msg: "没有权限！" }
 	msg[200708] = Message{ Code: 200708, Msg: "没有管理员权限！" }
+	msg[200709] = Message{ Code: 200709, Msg: "创建失败！" }
 
 
 }

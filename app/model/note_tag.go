@@ -10,7 +10,7 @@ package model
 import "time"
 
 type NoteTag struct {
-	ID int64 `xorm:"id" jsonresponse:"id"`
+	Id int64 `xorm:"id pk autoincr" jsonresponse:"id"`
 	UserId int64 `xorm:"user_id" jsonresponse:"user_id"`
 	NoteId int64 `xorm:"note_id" jsonresponse:"note_id"`
 	TagId int64 `xorm:"tag_id" jsonresponse:"tag_id"`

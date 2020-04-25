@@ -27,7 +27,7 @@ func NewUser() service.User{
 
 func (u *user) GetUser(id int64) (*model.User,bool,error)  {
 	user:= &model.User{}
-	user.ID = id
+	user.Id = id
 	has, err := database.Engine.Get(user)
 	return user,has, err
 }

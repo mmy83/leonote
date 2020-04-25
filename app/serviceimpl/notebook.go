@@ -12,6 +12,7 @@ import (
 	"leonote/app/service"
 	"leonote/config"
 	"leonote/database"
+	"log"
 )
 
 func NewNoteBook() service.NoteBook{
@@ -33,16 +34,19 @@ func (nb *noteBook) GetList(userId int64) ([]*model.NoteBook,error){
 func (nb *noteBook) GetNoteBook(id int64, userId int64)(*model.NoteBook,bool,error){
 
 	noteBook := &model.NoteBook{
-		ID:     id,
+		Id:     id,
 		UserId: userId,
 	}
 	has,err := database.Engine.Get(noteBook)
 	return noteBook,has, err
 }
 
-func (nb *noteBook) CreateNoteBook(notebook *model.NoteBook) (int64,error){
+func (nb *noteBook) CreateNoteBook(book *model.NoteBook) (int64,error){
 
-	affected, err := database.Engine.Insert(notebook)
+	log.Printf("notebook: %v\n", book)
+	affected, err := database.Engine.Insert(book)
+
+	log.Printf("notebook after: %v\n",book)
 	return affected,err
 
 }

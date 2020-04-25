@@ -12,6 +12,7 @@ import "leonote/app/model"
 type NoteBook interface {
 	GetNoteBook(id int64, userId int64)(*model.NoteBook,bool,error)
 	GetList(userId int64) ([]*model.NoteBook,error)
+	CreateNoteBook(book *model.NoteBook) (int64,error)
 }
 
 

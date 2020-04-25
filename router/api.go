@@ -35,6 +35,7 @@ func InitApiRouter(r *gin.Engine) *gin.Engine {
 
 
 		auth.GET("/notebook/:id", api.CNoteBook.GetNoteBook)
+		auth.POST("/notebook/create", api.CNoteBook.CreateNoteBook)
 		auth.GET("/notebook", api.CNoteBook.List)
 
 	}

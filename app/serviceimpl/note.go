@@ -33,7 +33,7 @@ func (nb *note) GetList(userId int64,notebookId int64) ([]*model.Note,error){
 func (nb *note) GetNote(id int64, userId int64)(*model.Note,bool,error){
 
 	note := &model.Note{
-		ID:     id,
+		Id:     id,
 		UserId: userId,
 	}
 	has,err := database.Engine.Get(note)

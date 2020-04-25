@@ -9,6 +9,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"leonote/app/model"
 	"leonote/app/service"
 	"leonote/app/serviceimpl"
 	"leonote/pkg/jwtauth"
@@ -20,15 +21,16 @@ import (
 var CNoteBook *NoteBook
 
 
-type NoteBook struct {
-	noteBookService service.NoteBook
-}
-
 func init(){
 	CNoteBook = &NoteBook{
 		noteBookService: serviceimpl.NewNoteBook(),
 	}
 }
+
+type NoteBook struct {
+	noteBookService service.NoteBook
+}
+
 
 // 获取我的指定笔记本
 // @Summary 获取我的指定笔记本
@@ -80,6 +82,42 @@ func (nb *NoteBook)List(c *gin.Context)  {
 
 	jsonresponse.NewJsonResponse(c,200600,noteBooks)
 	return
+}
+
+
+
+// 获取我的笔记本列表
+// @Summary 获取我的笔记本列表
+// @Description 获取我的笔记本列表
+// @Tags api/v1/notebook
+// @Param notebook_name formData string true "笔记本名"
+// @Param parent_id formData int true "上一级id"
+// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Router /api/v1/notebook/create [post]
+// @Security
+func (nb *NoteBook) CreateNoteBook(c *gin.Context){
+
+	uid := jwtauth.GetUidByLoginner(c)
+	var noteBook model.NoteBook
+
+	err := c.BindQuery(&noteBook)
+	if err != nil {
+		jsonresponse.NewJsonResponse(c,200700,"")
+		return
+	}
+	noteBook.UserId = uid
+
+	log.Printf("新建笔记本：%v\n", noteBook)
+	_, err =nb.noteBookService.CreateNoteBook(&noteBook)
+
+	if err != nil {
+		jsonresponse.NewJsonResponse(c,200709,"")
+		return
+	}
+
+	jsonresponse.NewJsonResponse(c,200600,noteBook)
+	return
+
 }
 
 

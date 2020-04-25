@@ -46,7 +46,7 @@ type JWTClaims struct {  // token里面添加用户信息，验证token后可能
 func (jt *jwtToken) CreateTokenString(user model.User) (string,time.Time,error) {
 
 	claims := JWTClaims{
-		ID: user.ID,
+		ID: user.Id,
 		UserName: user.UserName,
 		NickName: user.NickName,
 		IsAdmin: user.IsAdmin,
