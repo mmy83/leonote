@@ -20,7 +20,6 @@ import (
 var CNoteBook *NoteBook
 
 
-
 type NoteBook struct {
 	noteBookService service.NoteBook
 }
@@ -31,12 +30,13 @@ func init(){
 	}
 }
 
-// 获取用户
-// @Summary 获取用户
-// @Description 获取用户
-// @Tags api
-// @Success 200 {string} string {"code":200,"msg": "成功!"}
-// @Router /api/notebook/:id [get]
+// 获取我的指定笔记本
+// @Summary 获取我的指定笔记本
+// @Description 获取我的指定笔记本
+// @Tags api/v1/notebook
+// @Param id path int true "笔记本id"
+// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Router /api/v1/notebook/:id [get]
 // @Security
 func (nb *NoteBook)GetNoteBook(c *gin.Context){
 	id,_ := strconv.ParseInt(c.Param("id"), 10, 64)
@@ -60,12 +60,12 @@ func (nb *NoteBook)GetNoteBook(c *gin.Context){
 	}
 }
 
-// 获取用户列表
-// @Summary 获取用户列表
-// @Description 获取用户列表
-// @Tags api
-// @Success 200 {string} string "{"message": "pong"}"
-// @Router /api/user [get]
+// 获取我的笔记本列表
+// @Summary 获取我的笔记本列表
+// @Description 获取我的笔记本列表
+// @Tags api/v1/notebook
+// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Router /api/v1/notebook [get]
 // @Security
 func (nb *NoteBook)List(c *gin.Context)  {
 

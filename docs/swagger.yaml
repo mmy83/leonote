@@ -2,19 +2,94 @@ info:
   contact: {}
   license: {}
 paths:
-  /api/user/:id:
+  /api/v1/admin/user:
     get:
-      description: 获取用户
+      description: 获取用户列表
       responses:
         "200":
-          description: '{"message": "pong"}'
+          description: '{"code":200600,"msg": "成功！","data":[]}'
           schema:
             type: string
       security:
       - "": []
-      summary: 获取用户
+      summary: 获取用户列表
       tags:
-      - api
+      - api/v1/admin/user
+  /api/v1/admin/user/:id:
+    get:
+      description: 获取指定用户
+      parameters:
+      - description: 用户id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: '{"code": "200600","msg":"成功！","data":[]}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 获取指定用户
+      tags:
+      - api/v1/admin/user
+  /api/v1/login:
+    post:
+      description: 用户登录
+      parameters:
+      - description: 用户名
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{"code":200600,"msg": "成功!","data":[]}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 用户登录
+      tags:
+      - api/v1/login
+  /api/v1/notebook:
+    get:
+      description: 获取我的笔记本列表
+      responses:
+        "200":
+          description: '{"code":200600,"msg": "成功!","data":[]}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 获取我的笔记本列表
+      tags:
+      - api/v1/notebook
+  /api/v1/notebook/:id:
+    get:
+      description: 获取我的指定笔记本
+      parameters:
+      - description: 笔记本id
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: '{"code":200600,"msg": "成功!","data":[]}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 获取我的指定笔记本
+      tags:
+      - api/v1/notebook
   /check/health:
     get:
       consumes:

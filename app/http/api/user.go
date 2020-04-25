@@ -29,12 +29,13 @@ func init(){
 	}
 }
 
-// 获取用户
-// @Summary 获取用户
-// @Description 获取用户
-// @Tags api
-// @Success 200 {string} string "{"message": "pong"}"
-// @Router /api/user/:id [get]
+// 获取指定用户
+// @Summary 获取指定用户
+// @Description 获取指定用户
+// @Tags api/v1/admin/user
+// @Param id path int true "用户id"
+// @Success 200 {string} string "{"code": "200600","msg":"成功！","data":[]}"
+// @Router /api/v1/admin/user/:id [get]
 // @Security
 func (u *User)GetUser(c *gin.Context){
 	id,_ := strconv.ParseInt(c.Param("id"), 10, 64)
@@ -59,9 +60,9 @@ func (u *User)GetUser(c *gin.Context){
 // 获取用户列表
 // @Summary 获取用户列表
 // @Description 获取用户列表
-// @Tags api
-// @Success 200 {string} string "{"message": "pong"}"
-// @Router /api/user [get]
+// @Tags api/v1/admin/user
+// @Success 200 {string} string "{"code":200600,"msg": "成功！","data":[]}"
+// @Router /api/v1/admin/user [get]
 // @Security
 func (u *User)List(c *gin.Context)  {
 

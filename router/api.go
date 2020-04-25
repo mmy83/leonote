@@ -22,7 +22,7 @@ func InitApiRouter(r *gin.Engine) *gin.Engine {
 
 	auth := r.Group("/api/v1")
 
-	auth.GET("/login", api.Login)
+	auth.POST("/login", api.Login)
 
 	auth.Use(middleware.LoginAuth())
 	{

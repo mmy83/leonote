@@ -18,6 +18,16 @@ import (
 	"log"
 )
 
+
+// 用户登录
+// @Summary 用户登录
+// @Description 用户登录
+// @Tags api/v1/login
+// @Param username formData string true "用户名"
+// @Param password formData string true "密码"
+// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Router /api/v1/login [post]
+// @Security
 func Login(c *gin.Context) {
 
 	var loginUser model.Login
