@@ -9,9 +9,11 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	"leonote/app/model"
 	"leonote/app/service"
 	"leonote/app/serviceimpl"
 	"leonote/pkg/response/jsonresponse"
+	"leonote/util"
 	"log"
 	"strconv"
 )
@@ -76,5 +78,28 @@ func (u *User)List(c *gin.Context)  {
 	}
 
 	jsonresponse.NewJsonResponse(c,200600,users)
+	return
+}
+
+
+func (u *User) CreateUser(c *gin.Context) {
+	var user model.User
+	err := c.BindQuery(&user)
+	if err != nil {
+		jsonresponse.NewJsonResponse(c,200700,"")
+		return
+	}
+	user.PassWord,err = util.CreatePassword(user.PassWord)
+	if err != nil {
+		jsonresponse.NewJsonResponse(c,200700,"")
+		return
+	}
+	_,err = u.userService.CreateUser(&user)
+	if err != nil {
+		jsonresponse.NewJsonResponse(c,200709,"")
+		return
+	}
+
+	jsonresponse.NewJsonResponse(c,200600,user)
 	return
 }

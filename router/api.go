@@ -45,6 +45,7 @@ func InitApiRouter(r *gin.Engine) *gin.Engine {
 	{
 		admin.GET("/user/:id", api.CUser.GetUser)
 		admin.GET("/user", api.CUser.List)
+		admin.POST("/user/create", api.CUser.CreateUser)
 	}
 
 
