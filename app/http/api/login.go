@@ -67,7 +67,7 @@ func Login(c *gin.Context) {
 
 	data["token"] = tokenString
 
-	jsonresponse.NewJsonResponse(c,200602,data)
+	jsonresponse.NewJsonResponse(c,200601,data)
 	return
 
 }

@@ -7,7 +7,9 @@
 
 package service
 
+import "leonote/app/model"
+
 type Note interface {
-	GetNote()
-	GetList()
+	GetNote(id int64, userId int64)(*model.Note,bool,error)
+	GetList(userId int64,notebookId int64) ([]*model.Note,error)
 }

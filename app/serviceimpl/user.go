@@ -46,3 +46,10 @@ func (u *user)GetUserByUserName(username string) (*model.User,bool,error){
 	return user,has, err
 }
 
+func (u *user) CreateUser(user *model.User) (int64,error){
+
+	affected, err := database.Engine.Insert(user)
+
+	return affected,err
+}
+

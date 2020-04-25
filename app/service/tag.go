@@ -7,6 +7,8 @@
 
 package service
 
+import "leonote/app/model"
+
 type Tag interface {
-	
+	GetList(userId int64) ([]*model.Tag,error)
 }

@@ -8,7 +8,6 @@
 package jwtauth
 
 import (
-
 	"github.com/gin-gonic/gin"
 	"log"
 )
@@ -48,23 +47,41 @@ func (a *jwtAuth) IsAdmin(c *gin.Context) bool {
 	if ! a.IsLogin(c) {
 		return false
 	}
-	user, exists:= c.Get("JWT-DATA")
-	log.Printf("JWT-DATA get : %s\n", user)
-	if !exists {
-		return false
-	}
-	userMap,ok := user.(*JWTClaims)
+	userMap,ok :=GetLoginner(c)
 	if !ok {
-
-		log.Printf("is ok?")
 		return false
 	}
-	log.Printf("userMap data: %s\n",userMap)
-
 	log.Printf("isadmin: %s\n",userMap.IsAdmin)
 	if userMap.IsAdmin == 1  {
 		return true
 	}
 	log.Println("is not admin")
 	return false
+}
+
+
+func GetLoginner(c *gin.Context) (*JWTClaims,bool){
+	user, exists:= c.Get("JWT-DATA")
+	log.Printf("JWT-DATA get : %s\n", user)
+	if !exists {
+		return &JWTClaims{},false
+	}
+	userMap,ok := user.(*JWTClaims)
+	if !ok {
+
+		log.Printf("is ok?")
+		return &JWTClaims{},false
+	}
+	log.Printf("userMap data: %s\n",userMap)
+
+	return userMap,true
+}
+
+func GetUidByLoginner(c *gin.Context) int64 {
+	user ,ok:= GetLoginner(c)
+	if !ok {
+		log.Printf("is ok?")
+		return 0
+	}
+	return user.ID
 }

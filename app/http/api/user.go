@@ -48,11 +48,11 @@ func (u *User)GetUser(c *gin.Context){
 	}
 	if !has {
 
-		jsonresponse.NewJsonResponse(c,200601,"")
+		jsonresponse.NewJsonResponse(c,200600,"")
 		return
 	}
 
-	jsonresponse.NewJsonResponse(c,200601,user)
+	jsonresponse.NewJsonResponse(c,200600,user)
 	return
 }
 
@@ -74,6 +74,6 @@ func (u *User)List(c *gin.Context)  {
 		return
 	}
 
-	jsonresponse.NewJsonResponse(c,200601,users)
+	jsonresponse.NewJsonResponse(c,200600,users)
 	return
 }

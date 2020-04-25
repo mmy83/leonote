@@ -35,24 +35,13 @@ func init(){
 // @Summary 获取用户
 // @Description 获取用户
 // @Tags api
-// @Success 200 {string} string "{"message": "pong"}"
+// @Success 200 {string} string {"code":200,"msg": "成功!"}
 // @Router /api/notebook/:id [get]
 // @Security
 func (nb *NoteBook)GetNoteBook(c *gin.Context){
 	id,_ := strconv.ParseInt(c.Param("id"), 10, 64)
-	data, exists:= c.Get("JWT-DATA")
-	if !exists {
-		log.Printf("JWT-DATA NOT FOUND")
-		jsonresponse.NewJsonResponse(c,200707,"")
-		return
-	}
-	user,ok := data.(*jwtauth.JWTClaims)
-	if !ok {
-		log.Printf("is not ok")
-		jsonresponse.NewJsonResponse(c,200707,"")
-		return
-	}
-	noteBook,has,err := nb.noteBookService.GetNoteBook(id,user.ID)
+	uid := jwtauth.GetUidByLoginner(c)
+	noteBook,has,err := nb.noteBookService.GetNoteBook(id,uid)
 
 	if err!=nil{
 		log.Printf("err: %s\n", err)
@@ -62,11 +51,11 @@ func (nb *NoteBook)GetNoteBook(c *gin.Context){
 
 	if !has{
 
-		jsonresponse.NewJsonResponse(c,200601,"")
+		jsonresponse.NewJsonResponse(c,200600,"")
 		return
 	}else {
 
-		jsonresponse.NewJsonResponse(c,200601,noteBook)
+		jsonresponse.NewJsonResponse(c,200600,noteBook)
 		return
 	}
 }
@@ -80,29 +69,16 @@ func (nb *NoteBook)GetNoteBook(c *gin.Context){
 // @Security
 func (nb *NoteBook)List(c *gin.Context)  {
 
-	data, exists:= c.Get("JWT-DATA")
-	if !exists {
-		log.Printf("JWT-DATA NOT FOUND")
-		jsonresponse.NewJsonResponse(c,200707,"")
-		return
-	}
-	user,ok := data.(*jwtauth.JWTClaims)
-	if !ok {
-		log.Printf("is not ok")
-		jsonresponse.NewJsonResponse(c,200707,"")
-		return
-	}
+	uid := jwtauth.GetUidByLoginner(c)
 
-	log.Printf("parent get user: %s\n", user)
-
-	noteBooks,err := nb.noteBookService.GetList(user.ID)
+	noteBooks,err := nb.noteBookService.GetList(uid)
 	if err != nil {
 		log.Printf("list err: %s\n", err)
 		jsonresponse.NewJsonResponse(c,200706,"")
 		return
 	}
 
-	jsonresponse.NewJsonResponse(c,200601,noteBooks)
+	jsonresponse.NewJsonResponse(c,200600,noteBooks)
 	return
 }
 

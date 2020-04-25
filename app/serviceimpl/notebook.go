@@ -39,3 +39,10 @@ func (nb *noteBook) GetNoteBook(id int64, userId int64)(*model.NoteBook,bool,err
 	has,err := database.Engine.Get(noteBook)
 	return noteBook,has, err
 }
+
+func (nb *noteBook) CreateNoteBook(notebook *model.NoteBook) (int64,error){
+
+	affected, err := database.Engine.Insert(notebook)
+	return affected,err
+
+}

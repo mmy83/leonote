@@ -15,5 +15,6 @@ type User interface {
 	GetUser(id int64) (*model.User,bool,error)
 	GetList() ([]*model.User,error)
 	GetUserByUserName(username string) (*model.User,bool,error)
+	CreateUser(*model.User) (int64,error)
 }
 
