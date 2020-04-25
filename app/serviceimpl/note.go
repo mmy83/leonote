@@ -24,13 +24,13 @@ type note struct {
 	pageSize int
 }
 
-func (nb *note) GetList(userId int64,notebookId int64) ([]*model.Note,error){
+func (n *note) GetList(userId int64,notebookId int64) ([]*model.Note,error){
 	notes := make([]*model.Note,0)
-	err := database.Engine.Where("notebook_id=? and user_id=?",notebookId,userId).Limit(nb.pageSize,0).Find(&notes)
+	err := database.Engine.Where("notebook_id=? and user_id=?",notebookId,userId).Limit(n.pageSize,0).Find(&notes)
 	return notes,err
 }
 
-func (nb *note) GetNote(id int64, userId int64)(*model.Note,bool,error){
+func (n *note) GetNote(id int64, userId int64)(*model.Note,bool,error){
 
 	note := &model.Note{
 		Id:     id,
@@ -38,4 +38,13 @@ func (nb *note) GetNote(id int64, userId int64)(*model.Note,bool,error){
 	}
 	has,err := database.Engine.Get(note)
 	return note,has, err
+}
+
+
+func (n *note) CreateNote(note *model.Note) (int64,error){
+
+	affected, err := database.Engine.Insert(note)
+
+	return affected,err
+
 }

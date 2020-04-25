@@ -38,6 +38,10 @@ func InitApiRouter(r *gin.Engine) *gin.Engine {
 		auth.POST("/notebook/create", api.CNoteBook.CreateNoteBook)
 		auth.GET("/notebook", api.CNoteBook.List)
 
+		auth.GET("/note/:id", api.CNote.GetNote)
+		auth.POST("/note/create", api.CNote.CreateNote)
+		auth.GET("/note", api.CNote.List)
+
 	}
 
 	admin := r.Group("/api/v1/admin")
