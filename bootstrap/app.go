@@ -19,7 +19,36 @@ import (
 	"time"
 )
 
-func AppRun(){
+func NewApp() *application{
+	return &application{
+		Env: config.CfgApp.GetString("env"),
+		Name: config.CfgApp.GetString("name"),
+		Host: config.CfgApp.GetString("host"),
+		Port: config.CfgApp.GetString("port"),
+		LogPath: config.CfgApp.GetString("logpath"),
+		//ReadTimeout: config.CfgApp.GetDuration("readtimeout"),
+		//WriteTimeout: config.CfgApp.GetDuration("writertimeout"),
+	}
+}
+
+type application struct {
+
+	Env               string
+	Name              string
+	Host              string
+	Port              string
+
+	//ErrorLog          *log.Logger
+	LogPath           string
+
+	ReadTimeout       time.Duration
+	WriteTimeout      time.Duration
+
+}
+
+func (a *application)Run(){
+
+	gin.SetMode(a.Env)
 
 	r := gin.New()
 
@@ -28,8 +57,10 @@ func AppRun(){
 	r = InitRouter(r)
 
 	app := &http.Server{
-		Addr:    config.CfgApp.GetString("host")+":"+ config.CfgApp.GetString("port"),
+		Addr:    a.Host+":"+ a.Port,
 		Handler: r,
+		//ReadTimeout: a.ReadTimeout,
+		//WriteTimeout: a.WriteTimeout,
 	}
 	go func() {
 		// 服务连接
@@ -38,8 +69,9 @@ func AppRun(){
 		}
 	}()
 
-	log.Println("Server Run ", config.CfgApp.GetString("host")+":"+config.CfgApp.GetString("port"))
+	log.Println("Server Run ", a.Host+":"+a.Port)
 	log.Println("Enter Control + C Shutdown Server")
+
 	// 等待中断信号以优雅地关闭服务器（设置 5 秒的超时时间）
 	quit := make(chan os.Signal)
 	signal.Notify(quit, os.Interrupt)

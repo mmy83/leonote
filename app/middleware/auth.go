@@ -10,7 +10,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"leonote/pkg/jwtauth"
-	"net/http"
+	"leonote/pkg/response/jsonresponse"
 )
 
 func LoginAuth() gin.HandlerFunc {
@@ -19,11 +19,8 @@ func LoginAuth() gin.HandlerFunc {
 			c.Next()
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{
-			"status": 401,
-			"msg":    "对不起，您没有该接口访问权限，请联系管理员",
-		})
+		jsonresponse.NewJsonResponse(c,200707,"")
 		c.Abort()
-		return
+
 	}
 }

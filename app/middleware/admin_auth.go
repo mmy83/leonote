@@ -10,7 +10,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"leonote/pkg/jwtauth"
-	"net/http"
+	"leonote/pkg/response/jsonresponse"
 )
 
 func IsAdminAuth() gin.HandlerFunc {
@@ -19,11 +19,7 @@ func IsAdminAuth() gin.HandlerFunc {
 			c.Next()
 			return
 		}
-		c.JSON(http.StatusOK, gin.H{
-			"status": 401,
-			"msg":    "对不起，您没有管理员权限！",
-		})
+		jsonresponse.NewJsonResponse(c,200708,"")
 		c.Abort()
-		return
 	}
 }

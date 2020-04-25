@@ -12,6 +12,7 @@ import (
 	"leonote/app/service"
 	"leonote/app/serviceimpl"
 	"leonote/pkg/jwtauth"
+	"leonote/pkg/response/jsonresponse"
 	"log"
 	"strconv"
 )
@@ -42,21 +43,31 @@ func (nb *NoteBook)GetNoteBook(c *gin.Context){
 	data, exists:= c.Get("JWT-DATA")
 	if !exists {
 		log.Printf("JWT-DATA NOT FOUND")
+		jsonresponse.NewJsonResponse(c,200707,"")
+		return
 	}
 	user,ok := data.(*jwtauth.JWTClaims)
 	if !ok {
 		log.Printf("is not ok")
+		jsonresponse.NewJsonResponse(c,200707,"")
+		return
 	}
 	noteBook,has,err := nb.noteBookService.GetNoteBook(id,user.ID)
 
 	if err!=nil{
-		log.Fatalf("err: %s\n", err)
+		log.Printf("err: %s\n", err)
+		jsonresponse.NewJsonResponse(c,200706,"")
+		return
 	}
 
 	if !has{
-		c.JSON(200,gin.H{})
+
+		jsonresponse.NewJsonResponse(c,200601,"")
+		return
 	}else {
-		c.JSON(200,noteBook)
+
+		jsonresponse.NewJsonResponse(c,200601,noteBook)
+		return
 	}
 }
 
@@ -72,19 +83,27 @@ func (nb *NoteBook)List(c *gin.Context)  {
 	data, exists:= c.Get("JWT-DATA")
 	if !exists {
 		log.Printf("JWT-DATA NOT FOUND")
+		jsonresponse.NewJsonResponse(c,200707,"")
+		return
 	}
 	user,ok := data.(*jwtauth.JWTClaims)
 	if !ok {
 		log.Printf("is not ok")
+		jsonresponse.NewJsonResponse(c,200707,"")
+		return
 	}
 
 	log.Printf("parent get user: %s\n", user)
 
 	noteBooks,err := nb.noteBookService.GetList(user.ID)
 	if err != nil {
-		log.Fatalf("list err: %s\n", err)
+		log.Printf("list err: %s\n", err)
+		jsonresponse.NewJsonResponse(c,200706,"")
+		return
 	}
-	c.JSON(200, noteBooks)
+
+	jsonresponse.NewJsonResponse(c,200601,noteBooks)
+	return
 }
 
 

@@ -1,16 +1,17 @@
 settings:
 
   application:
-    env: dev
-    domain: 127.0.0.1
-    envmsg: "谢谢您的参与，但为了大家更好的体验，所以本次提交就算了吧！\U0001F600\U0001F600\U0001F600"
-    host: 0.0.0.0
-    isinit: false
-    logpath: temp/logs/log.txt
+
+    env: debug  #release,test
     name: testApp
+
+    host: 0.0.0.0
     port: 8000
-    readtimeout: 1
-    writertimeout: 2
+
+    logpath: /tmp/logs/log.txt
+
+#    readtimeout: 1
+#    writertimeout: 2
 
   jwt:
     key: "leonote jwt"

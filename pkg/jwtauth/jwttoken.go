@@ -37,10 +37,10 @@ type jwtToken struct {
 
 type JWTClaims struct {  // token里面添加用户信息，验证token后可能会用到用户信息
 	jwt.StandardClaims
-	ID int64 `json:"id"`
-	UserName string `json:"username"`
-	NickName string `json:"nickname"`
-	IsAdmin int64 `json:"isadmin"`
+	ID int64 `jsonresponse:"id"`
+	UserName string `jsonresponse:"username"`
+	NickName string `jsonresponse:"nickname"`
+	IsAdmin int64 `jsonresponse:"isadmin"`
 }
 
 func (jt *jwtToken) CreateTokenString(user model.User) (string,time.Time,error) {

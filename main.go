@@ -4,7 +4,8 @@ import "leonote/bootstrap"
 
 func main() {
 
-	bootstrap.AppRun()
+	app := bootstrap.NewApp()
+	app.Run()
 
 }
 

@@ -13,6 +13,7 @@ import (
 	"leonote/app/serviceimpl"
 	"leonote/config"
 	"leonote/pkg/jwtauth"
+	"leonote/pkg/response/jsonresponse"
 	"leonote/util"
 	"log"
 )
@@ -22,38 +23,22 @@ func Login(c *gin.Context) {
 	var loginUser model.Login
 	if err:=c.BindQuery(&loginUser); err!=nil {
 		log.Printf("query data err: %s\n",err)
-		c.JSON(200,gin.H{
-			"code": 200,
-			"msg": "缺少参数！",
-		})
+		jsonresponse.NewJsonResponse(c,200705,"")
 		return
 	}
 
 	userImpl := serviceimpl.NewUser()
 	user,has,err := userImpl.GetUserByUserName(loginUser.UserName)
-	if err != nil{
+	if err != nil || !has{
 		log.Printf("Get User Err: %s\n", err)
-		c.JSON(200,gin.H{
-			"code": 404,
-			"msg": "用户不存在！！",
-		})
-		return
-	}
-	if !has {
-		c.JSON(200,gin.H{
-			"code":404,
-			"msg":"user not found",
-		})
+		jsonresponse.NewJsonResponse(c,200702,"")
 		return
 	}
 
 	err = util.CompareHashAndPassword(user.PassWord,loginUser.Password)
 	if err != nil{
 		log.Printf("密码错误: %s\n", err)
-		c.JSON(200,gin.H{
-			"code": 404,
-			"msg": "密码错误！",
-		})
+		jsonresponse.NewJsonResponse(c,200704,"")
 		return
 	}
 
@@ -63,10 +48,7 @@ func Login(c *gin.Context) {
 
 	if err != nil {
 		log.Printf("token create error: %s\n",err)
-		c.JSON(200,gin.H{
-			"code": 404,
-			"msg": "获取参数失败！",
-		})
+		jsonresponse.NewJsonResponse(c,200706,"")
 		return
 	}
 
@@ -81,9 +63,11 @@ func Login(c *gin.Context) {
 		false,
 		true,
 	)
-	c.JSON(200,gin.H{
-		"code": 200,
-		"msg": "login ok",
-	})
+	data := make(map[string]interface{})
+
+	data["token"] = tokenString
+
+	jsonresponse.NewJsonResponse(c,200602,data)
 	return
+
 }

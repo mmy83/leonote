@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"leonote/app/service"
 	"leonote/app/serviceimpl"
+	"leonote/pkg/response/jsonresponse"
 	"log"
 	"strconv"
 )
@@ -22,6 +23,7 @@ type User struct {
 }
 
 func init(){
+
 	CUser = &User{
 		userService: serviceimpl.NewUser(),
 	}
@@ -38,15 +40,20 @@ func (u *User)GetUser(c *gin.Context){
 	id,_ := strconv.ParseInt(c.Param("id"), 10, 64)
 	user,has,err := u.userService.GetUser(id)
 
-	if err!=nil{
-		log.Fatalf("err: %s\n", err)
+	if err!=nil  {
+
+		log.Printf("err: %s\n", err)
+		jsonresponse.NewJsonResponse(c,200706,"")
+		return
+	}
+	if !has {
+
+		jsonresponse.NewJsonResponse(c,200601,"")
+		return
 	}
 
-	if !has{
-		c.JSON(200,gin.H{})
-	}else {
-		c.JSON(200,user)
-	}
+	jsonresponse.NewJsonResponse(c,200601,user)
+	return
 }
 
 // 获取用户列表
@@ -57,9 +64,16 @@ func (u *User)GetUser(c *gin.Context){
 // @Router /api/user [get]
 // @Security
 func (u *User)List(c *gin.Context)  {
+
 	users,err := u.userService.GetList()
+
 	if err != nil {
-		log.Fatalf("list err: %s\n", err)
+
+		log.Printf("list err: %s\n", err)
+		jsonresponse.NewJsonResponse(c,200706,"")
+		return
 	}
-	c.JSON(200, users)
+
+	jsonresponse.NewJsonResponse(c,200601,users)
+	return
 }
