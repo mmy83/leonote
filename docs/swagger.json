@@ -58,6 +58,51 @@
                 }
             }
         },
+        "/api/v1/admin/user/create": {
+            "post": {
+                "security": [
+                    {
+                        "": []
+                    }
+                ],
+                "description": "创建用户",
+                "tags": [
+                    "api/v1/admin/user"
+                ],
+                "summary": "创建用户",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户名",
+                        "name": "username",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "昵称",
+                        "name": "nickname",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200600,\"msg\": \"成功!\",\"data\":[]}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/login": {
             "post": {
                 "security": [
@@ -82,6 +127,120 @@
                         "type": "string",
                         "description": "密码",
                         "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200600,\"msg\": \"成功!\",\"data\":[]}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/note": {
+            "get": {
+                "security": [
+                    {
+                        "": []
+                    }
+                ],
+                "description": "指定笔记本下的笔记列表",
+                "tags": [
+                    "api/v1/note"
+                ],
+                "summary": "指定笔记本下的笔记列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "笔记本id",
+                        "name": "notebook_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200600,\"msg\": \"成功!\",\"data\":[]}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/note/:id": {
+            "get": {
+                "security": [
+                    {
+                        "": []
+                    }
+                ],
+                "description": "获取指定笔记",
+                "tags": [
+                    "api/v1/note"
+                ],
+                "summary": "获取指定笔记",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "笔记id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200600,\"msg\": \"成功!\",\"data\":[]}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/note/create": {
+            "post": {
+                "security": [
+                    {
+                        "": []
+                    }
+                ],
+                "description": "创建指定笔记本下的笔记",
+                "tags": [
+                    "api/v1/note"
+                ],
+                "summary": "创建指定笔记本下的笔记",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "笔记本id",
+                        "name": "notebook_id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "笔记标题",
+                        "name": "title",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "笔记tags",
+                        "name": "tags",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "笔记内容",
+                        "name": "content",
                         "in": "formData",
                         "required": true
                     }
@@ -139,6 +298,66 @@
                         "required": true
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200600,\"msg\": \"成功!\",\"data\":[]}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/notebook/create": {
+            "post": {
+                "security": [
+                    {
+                        "": []
+                    }
+                ],
+                "description": "获取我的笔记本列表",
+                "tags": [
+                    "api/v1/notebook"
+                ],
+                "summary": "获取我的笔记本列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "笔记本名",
+                        "name": "notebook_name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "上一级id",
+                        "name": "parent_id",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200600,\"msg\": \"成功!\",\"data\":[]}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tag": {
+            "get": {
+                "security": [
+                    {
+                        "": []
+                    }
+                ],
+                "description": "标签列表",
+                "tags": [
+                    "api/v1/tag"
+                ],
+                "summary": "标签列表",
                 "responses": {
                     "200": {
                         "description": "{\"code\":200600,\"msg\": \"成功!\",\"data\":[]}",

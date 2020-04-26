@@ -82,6 +82,18 @@ func (u *User)List(c *gin.Context)  {
 }
 
 
+
+
+// 创建用户
+// @Summary 创建用户
+// @Description 创建用户
+// @Tags api/v1/admin/user
+// @Param username formData string true "用户名"
+// @Param nickname formData string true "昵称"
+// @Param password formData string true "密码"
+// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Router /api/v1/admin/user/create [post]
+// @Security
 func (u *User) CreateUser(c *gin.Context) {
 	var user model.User
 	err := c.BindQuery(&user)

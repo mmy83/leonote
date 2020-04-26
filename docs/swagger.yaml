@@ -34,6 +34,35 @@ paths:
       summary: 获取指定用户
       tags:
       - api/v1/admin/user
+  /api/v1/admin/user/create:
+    post:
+      description: 创建用户
+      parameters:
+      - description: 用户名
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: 昵称
+        in: formData
+        name: nickname
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{"code":200600,"msg": "成功!","data":[]}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 创建用户
+      tags:
+      - api/v1/admin/user
   /api/v1/login:
     post:
       description: 用户登录
@@ -58,6 +87,78 @@ paths:
       summary: 用户登录
       tags:
       - api/v1/login
+  /api/v1/note:
+    get:
+      description: 指定笔记本下的笔记列表
+      parameters:
+      - description: 笔记本id
+        in: query
+        name: notebook_id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{"code":200600,"msg": "成功!","data":[]}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 指定笔记本下的笔记列表
+      tags:
+      - api/v1/note
+  /api/v1/note/:id:
+    get:
+      description: 获取指定笔记
+      parameters:
+      - description: 笔记id
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{"code":200600,"msg": "成功!","data":[]}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 获取指定笔记
+      tags:
+      - api/v1/note
+  /api/v1/note/create:
+    post:
+      description: 创建指定笔记本下的笔记
+      parameters:
+      - description: 笔记本id
+        in: formData
+        name: notebook_id
+        required: true
+        type: string
+      - description: 笔记标题
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: 笔记tags
+        in: formData
+        name: tags
+        required: true
+        type: string
+      - description: 笔记内容
+        in: formData
+        name: content
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{"code":200600,"msg": "成功!","data":[]}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 创建指定笔记本下的笔记
+      tags:
+      - api/v1/note
   /api/v1/notebook:
     get:
       description: 获取我的笔记本列表
@@ -90,6 +191,43 @@ paths:
       summary: 获取我的指定笔记本
       tags:
       - api/v1/notebook
+  /api/v1/notebook/create:
+    post:
+      description: 获取我的笔记本列表
+      parameters:
+      - description: 笔记本名
+        in: formData
+        name: notebook_name
+        required: true
+        type: string
+      - description: 上一级id
+        in: formData
+        name: parent_id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: '{"code":200600,"msg": "成功!","data":[]}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 获取我的笔记本列表
+      tags:
+      - api/v1/notebook
+  /api/v1/tag:
+    get:
+      description: 标签列表
+      responses:
+        "200":
+          description: '{"code":200600,"msg": "成功!","data":[]}'
+          schema:
+            type: string
+      security:
+      - "": []
+      summary: 标签列表
+      tags:
+      - api/v1/tag
   /check/health:
     get:
       consumes:

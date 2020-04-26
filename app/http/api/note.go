@@ -32,6 +32,14 @@ type Note struct {
 }
 
 
+// 指定笔记本下的笔记列表
+// @Summary 指定笔记本下的笔记列表
+// @Description 指定笔记本下的笔记列表
+// @Tags api/v1/note
+// @Param notebook_id query string true "笔记本id"
+// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Router /api/v1/note [get]
+// @Security
 func (n *Note) List(c *gin.Context){
 
 	notebookId,_ := strconv.ParseInt(c.Query("notebook_id"),10,64)
@@ -47,6 +55,16 @@ func (n *Note) List(c *gin.Context){
 	return
 }
 
+
+
+// 获取指定笔记
+// @Summary 获取指定笔记
+// @Description 获取指定笔记
+// @Tags api/v1/note
+// @Param id path string true "笔记id"
+// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Router /api/v1/note/:id [get]
+// @Security
 func (n *Note) GetNote(c *gin.Context){
 	noteId,_ := strconv.ParseInt(c.Param("id"),10,64)
 	uid := jwtauth.GetUidByLoginner(c)
@@ -69,6 +87,18 @@ func (n *Note) GetNote(c *gin.Context){
 	return
 }
 
+
+// 创建指定笔记本下的笔记
+// @Summary 创建指定笔记本下的笔记
+// @Description 创建指定笔记本下的笔记
+// @Tags api/v1/note
+// @Param notebook_id formData string true "笔记本id"
+// @Param title formData string true "笔记标题"
+// @Param tags formData string true "笔记tags"
+// @Param content formData string true "笔记内容"
+// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Router /api/v1/note/create [post]
+// @Security
 func (n *Note) CreateNote(c *gin.Context) {
 
 	uid := jwtauth.GetUidByLoginner(c)
