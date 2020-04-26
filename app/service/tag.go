@@ -11,4 +11,5 @@ import "leonote/app/model"
 
 type Tag interface {
 	GetList(userId int64) ([]*model.Tag,error)
+	CreateTags(tags []*model.Tag) (int64,error)
 }
