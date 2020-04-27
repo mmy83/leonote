@@ -31,9 +31,10 @@ import (
 func Login(c *gin.Context) {
 
 	var loginUser model.Login
-	if err:=c.BindQuery(&loginUser); err!=nil {
-		log.Printf("query data err: %s\n",err)
-		jsonresponse.NewJsonResponse(c,200705,"")
+
+	if err:=c.ShouldBind(&loginUser); err!=nil {
+		log.Printf("query data err: %s\n", err)
+		jsonresponse.NewJsonResponse(c, 200705, "")
 		return
 	}
 
