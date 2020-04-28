@@ -16,7 +16,7 @@ settings:
   jwt:
     key: "leonote jwt"
     timeout: 3600
-    tokenLookup: "header: Authorization, query: token, cookie: jwt"
+    tokenLookup: "header: X-Token, cookie: token, query: token"
     tokenHeadName: "Bearer"
     SigningAlgorithm: HS256
     secret: leonote

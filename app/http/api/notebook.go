@@ -42,6 +42,11 @@ type NoteBook struct {
 // @Security
 func (nb *NoteBook)GetNoteBook(c *gin.Context){
 	id,_ := strconv.ParseInt(c.Param("id"), 10, 64)
+	if id <= 0 {
+		log.Printf("err: 获取数据失败" )
+		jsonresponse.NewJsonResponse(c,200706,"")
+		return
+	}
 	uid := jwtauth.GetUidByLoginner(c)
 	noteBook,has,err := nb.noteBookService.GetNoteBook(id,uid)
 

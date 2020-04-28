@@ -12,15 +12,15 @@ import (
 )
 
 type User struct {
-	Id int64 `xorm:"id pk autoincr" jsonresponse:"id"`
-	UserName string `xorm:"username"  jsonresponse:"user_name" form:"username" binding:"required"`
-	NickName string `xorm:"nickname"  jsonresponse:"nick_name" form:"nickname"`
-	PassWord string `xorm:"password"  jsonresponse:"-" form:"password" binding:"required"`
-	LastLoginTime int64 `xorm:"last_login_time" jsonresponse:"last_login_time"`
-	IsAdmin int64 `xorm:"isadmin" jsonresponse:"is_admin"`
-	CreatedAt time.Time `xorm:"created" jsonresponse:"created_at"`
-	UpdatedAt time.Time `xorm:"updated" jsonresponse:"updated_at"`
-	DeletedAt time.Time `xorm:"deleted" jsonresponse:"deleted_at"`
+	Id int64 `xorm:"id pk autoincr" json:"id"`
+	UserName string `xorm:"username"  json:"user_name" form:"username" binding:"required"`
+	NickName string `xorm:"nickname"  json:"nick_name" form:"nickname"`
+	PassWord string `xorm:"password"  json:"-" form:"password" binding:"required"`
+	LastLoginTime int64 `xorm:"last_login_time" json:"last_login_time"`
+	IsAdmin int64 `xorm:"isadmin" json:"is_admin"`
+	CreatedAt time.Time `xorm:"created" json:"created_at"`
+	UpdatedAt time.Time `xorm:"updated" json:"updated_at"`
+	DeletedAt time.Time `xorm:"deleted" json:"deleted_at"`
 }
 
 func (u *User) TableName() string {

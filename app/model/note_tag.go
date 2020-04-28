@@ -10,13 +10,13 @@ package model
 import "time"
 
 type NoteTag struct {
-	Id int64 `xorm:"id pk autoincr" jsonresponse:"id"`
-	UserId int64 `xorm:"user_id" jsonresponse:"user_id"`
-	NoteId int64 `xorm:"note_id" jsonresponse:"note_id"`
-	TagId int64 `xorm:"tag_id" jsonresponse:"tag_id"`
-	CreatedAt time.Time `xorm:"created" jsonresponse:"created_at"`
-	UpdatedAt time.Time `xorm:"updated" jsonresponse:"updated_at"`
-	DeletedAt time.Time `xorm:"deleted" jsonresponse:"deleted_at"`
+	Id int64 `xorm:"id pk autoincr" json:"id"`
+	UserId int64 `xorm:"user_id" json:"user_id"`
+	NoteId int64 `xorm:"note_id" json:"note_id"`
+	TagId int64 `xorm:"tag_id" json:"tag_id"`
+	CreatedAt time.Time `xorm:"created" json:"created_at"`
+	UpdatedAt time.Time `xorm:"updated" json:"updated_at"`
+	DeletedAt time.Time `xorm:"deleted" json:"deleted_at"`
 }
 
 func (nt *NoteTag) TableName() string {

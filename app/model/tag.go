@@ -10,13 +10,13 @@ package model
 import "time"
 
 type Tag struct {
-	Id int64 `xorm:"id pk autoincr" jsonresponse:"id"`
-	UserId int64 `xorm:"user_id" jsonresponse:"user_id"`
-	TagName string `xorm:"tag_name" jsonresponse:"tag_name"`
-	Count int64 `xorm:"count" jsonresponse:"count"`
-	CreatedAt time.Time `xorm:"created" jsonresponse:"created_at"`
-	UpdatedAt time.Time `xorm:"updated" jsonresponse:"updated_at"`
-	DeletedAt time.Time `xorm:"deleted" jsonresponse:"deleted_at"`
+	Id int64 `xorm:"id pk autoincr" json:"id"`
+	UserId int64 `xorm:"user_id" json:"user_id"`
+	TagName string `xorm:"tag_name" json:"tag_name"`
+	Count int64 `xorm:"count" json:"count"`
+	CreatedAt time.Time `xorm:"created" json:"created_at"`
+	UpdatedAt time.Time `xorm:"updated" json:"updated_at"`
+	DeletedAt time.Time `xorm:"deleted" json:"deleted_at"`
 }
 
 func (t *Tag) TableName() string {

@@ -15,6 +15,7 @@ type Message struct {
 var msg = make(map[int]Message)
 
 func init(){
+	msg[200000] = Message{ Code: 200000, Msg: "成功！" }
 	msg[200600] = Message{ Code: 200600, Msg: "成功！" }
 	msg[200601] = Message{ Code: 200601, Msg: "登录成功！" }
 	//msg[200602] = Message{ Code: 200602, Msg: "成功！" }

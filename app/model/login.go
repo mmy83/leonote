@@ -10,7 +10,7 @@ package model
 
 type Login struct {
 
-	UserName string `form:"username" jsonresponse:"username" binding:"required"`
-	Password string `form:"password" jsonresponse:"password" binding:"required"`
+	UserName string `form:"username" json:"username" binding:"required"`
+	Password string `form:"password" json:"password" binding:"required"`
 
 }

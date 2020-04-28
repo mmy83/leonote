@@ -43,6 +43,11 @@ type Note struct {
 func (n *Note) List(c *gin.Context){
 
 	notebookId,_ := strconv.ParseInt(c.Query("notebook_id"),10,64)
+	if notebookId <= 0 {
+		log.Printf("err: 获取数据失败" )
+		jsonresponse.NewJsonResponse(c,200706,"")
+		return
+	}
 	uid := jwtauth.GetUidByLoginner(c)
 	notes,err := n.noteService.GetList(uid,notebookId)
 	if err != nil {

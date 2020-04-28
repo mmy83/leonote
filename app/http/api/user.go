@@ -12,6 +12,7 @@ import (
 	"leonote/app/model"
 	"leonote/app/service"
 	"leonote/app/serviceimpl"
+	"leonote/pkg/jwtauth"
 	"leonote/pkg/response/jsonresponse"
 	"leonote/util"
 	"log"
@@ -31,6 +32,36 @@ func init(){
 	}
 }
 
+
+// 获取登录用户信息
+// @Summary 获取登录用户信息
+// @Description 获取登录用户信息
+// @Tags api/v1/user/info
+// @Success 200 {string} string "{"code": "200600","msg":"成功！","data":[]}"
+// @Router /api/v1/user/info [get]
+// @Security
+func (u *User)GetUserInfo(c *gin.Context){
+
+	user_id := jwtauth.GetUidByLoginner(c)
+	user,has,err := u.userService.GetUser(user_id)
+
+	log.Printf("user %d info: %s\n",user_id,user)
+	if err!=nil  {
+
+		log.Printf("err: %s\n", err)
+		jsonresponse.NewJsonResponse(c,200706,"")
+		return
+	}
+	if !has {
+
+		jsonresponse.NewJsonResponse(c,200600,"")
+		return
+	}
+
+	jsonresponse.NewJsonResponse(c,200600,user)
+	return
+}
+
 // 获取指定用户
 // @Summary 获取指定用户
 // @Description 获取指定用户
@@ -41,8 +72,14 @@ func init(){
 // @Security
 func (u *User)GetUser(c *gin.Context){
 	id,_ := strconv.ParseInt(c.Param("id"), 10, 64)
+	if id <= 0 {
+		log.Printf("err: 获取数据失败" )
+		jsonresponse.NewJsonResponse(c,200706,"")
+		return
+	}
 	user,has,err := u.userService.GetUser(id)
 
+	log.Printf("user %d info: %s\n",id,user)
 	if err!=nil  {
 
 		log.Printf("err: %s\n", err)

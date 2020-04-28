@@ -11,7 +11,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"leonote/app/model"
 	"leonote/app/serviceimpl"
-	"leonote/config"
 	"leonote/pkg/jwtauth"
 	"leonote/pkg/response/jsonresponse"
 	"leonote/util"
@@ -55,7 +54,7 @@ func Login(c *gin.Context) {
 
 	log.Printf("userData : %s\n", user)
 
-	tokenString,expire,err := jwtauth.JwtToken.CreateTokenString(*user)
+	tokenString,_,err := jwtauth.JwtToken.CreateTokenString(*user)
 
 	if err != nil {
 		log.Printf("token create error: %s\n",err)
@@ -63,22 +62,22 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	cookieName := config.CfgJwt.GetString("cookie")
-	domain := config.CfgApp.GetString("domain")
-	c.SetCookie(
-		cookieName,
-		tokenString,
-		int(expire.Unix()),
-		"/",
-		domain,
-		false,
-		true,
-	)
+	//cookieName := config.CfgJwt.GetString("cookie")
+	//domain := config.CfgApp.GetString("domain")
+	//c.SetCookie(
+	//	cookieName,
+	//	tokenString,
+	//	int(expire.Unix()),
+	//	"/",
+	//	domain,
+	//	false,
+	//	true,
+	//)
 	data := make(map[string]interface{})
 
 	data["token"] = tokenString
 
-	jsonresponse.NewJsonResponse(c,200601,data)
+	jsonresponse.NewJsonResponse(c,200600,data)
 	return
 
 }
