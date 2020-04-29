@@ -25,11 +25,30 @@ type noteBook struct {
 	pageSize int
 }
 
-func (nb *noteBook) GetList(userId int64) ([]*model.NoteBook,error){
+
+func (nb *noteBook) GetList(userId int64) ([]*model.NoteBookTree,error){
 	noteBooks := make([]*model.NoteBook,0)
 	err := database.Engine.Where("user_id=?",userId).Limit(nb.pageSize,0).Find(&noteBooks)
-	return noteBooks,err
+	log.Printf("noteBooks: %s\n",noteBooks)
+	return nb.createNoteBookTree(0,noteBooks),err
 }
+
+func (nb *noteBook) createNoteBookTree(parent_id int64,noteBooks []*model.NoteBook)  []*model.NoteBookTree {
+
+	noteBookTrees := make([]*model.NoteBookTree,0)
+	for _,noteBook := range noteBooks {
+		if parent_id == noteBook.ParentId {
+			noteBookTrees = append(noteBookTrees,&model.NoteBookTree{
+				NoteBook:  noteBook,
+				Childrens: nb.createNoteBookTree(noteBook.Id,noteBooks),
+			})
+
+		}
+	}
+	return noteBookTrees
+
+}
+
 
 func (nb *noteBook) GetNoteBook(id int64, userId int64)(*model.NoteBook,bool,error){
 

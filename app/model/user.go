@@ -15,6 +15,7 @@ type User struct {
 	Id int64 `xorm:"id pk autoincr" json:"id"`
 	UserName string `xorm:"username"  json:"user_name" form:"username" binding:"required"`
 	NickName string `xorm:"nickname"  json:"nick_name" form:"nickname"`
+	//Avatar string `xorm:"avatar"  json:"avatar" form:"avatar"`
 	PassWord string `xorm:"password"  json:"-" form:"password" binding:"required"`
 	LastLoginTime int64 `xorm:"last_login_time" json:"last_login_time"`
 	IsAdmin int64 `xorm:"isadmin" json:"is_admin"`

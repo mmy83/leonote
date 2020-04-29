@@ -30,9 +30,8 @@ func InitApiRouter(r *gin.Engine) *gin.Engine {
 		auth.GET("/check/ping", api.Ping)
 		auth.GET("/check/health", api.HealthCheck)
 
-		auth.GET("/user/:id", api.CUser.GetUser)
+
 		auth.GET("/user/info", api.CUser.GetUserInfo)
-		auth.GET("/user", api.CUser.List)
 
 
 		auth.GET("/notebook/:id", api.CNoteBook.GetNoteBook)

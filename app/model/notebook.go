@@ -27,3 +27,8 @@ type NoteBook struct {
 func (nb *NoteBook) TableName() string {
 	return "leo_notebooks"
 }
+
+type NoteBookTree struct {
+	*NoteBook
+	Childrens []*NoteBookTree
+}
