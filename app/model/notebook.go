@@ -30,5 +30,5 @@ func (nb *NoteBook) TableName() string {
 
 type NoteBookTree struct {
 	*NoteBook
-	Childrens []*NoteBookTree
+	Childrens []*NoteBookTree  `json:"childrens"`
 }
