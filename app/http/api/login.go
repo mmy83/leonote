@@ -24,7 +24,7 @@ import (
 // @Tags api/v1/login
 // @Param username formData string true "用户名"
 // @Param password formData string true "密码"
-// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Success 200 {string} string "{"code":200000,"msg": "成功!","data":[]}"
 // @Router /api/v1/login [post]
 // @Security
 func Login(c *gin.Context) {
@@ -33,7 +33,7 @@ func Login(c *gin.Context) {
 
 	if err:=c.ShouldBind(&loginUser); err!=nil {
 		log.Printf("query data err: %s\n", err)
-		jsonresponse.NewJsonResponse(c, 200705, "")
+		jsonresponse.NewJsonResponse(c, 200505, "")
 		return
 	}
 
@@ -41,14 +41,14 @@ func Login(c *gin.Context) {
 	user,has,err := userImpl.GetUserByUserName(loginUser.UserName)
 	if err != nil || !has{
 		log.Printf("Get User Err: %s\n", err)
-		jsonresponse.NewJsonResponse(c,200702,"")
+		jsonresponse.NewJsonResponse(c,200502,"")
 		return
 	}
 
 	err = util.CompareHashAndPassword(user.PassWord,loginUser.Password)
 	if err != nil{
 		log.Printf("密码错误: %s\n", err)
-		jsonresponse.NewJsonResponse(c,200704,"")
+		jsonresponse.NewJsonResponse(c,200504,"")
 		return
 	}
 
@@ -58,7 +58,7 @@ func Login(c *gin.Context) {
 
 	if err != nil {
 		log.Printf("token create error: %s\n",err)
-		jsonresponse.NewJsonResponse(c,200706,"")
+		jsonresponse.NewJsonResponse(c,200506,"")
 		return
 	}
 
@@ -77,7 +77,7 @@ func Login(c *gin.Context) {
 
 	data["token"] = tokenString
 
-	jsonresponse.NewJsonResponse(c,200600,data)
+	jsonresponse.NewJsonResponse(c,200000,data)
 	return
 
 }

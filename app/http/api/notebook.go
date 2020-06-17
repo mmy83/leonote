@@ -37,14 +37,14 @@ type NoteBook struct {
 // @Description 获取我的指定笔记本
 // @Tags api/v1/notebook
 // @Param id path int true "笔记本id"
-// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Success 200 {string} string "{"code":200000,"msg": "成功!","data":[]}"
 // @Router /api/v1/notebook/:id [get]
 // @Security
 func (nb *NoteBook)GetNoteBook(c *gin.Context){
 	id,_ := strconv.ParseInt(c.Param("id"), 10, 64)
 	if id <= 0 {
 		log.Printf("err: 获取数据失败" )
-		jsonresponse.NewJsonResponse(c,200706,"")
+		jsonresponse.NewJsonResponse(c,200506,"")
 		return
 	}
 	uid := jwtauth.GetUidByLoginner(c)
@@ -52,17 +52,17 @@ func (nb *NoteBook)GetNoteBook(c *gin.Context){
 
 	if err!=nil{
 		log.Printf("err: %s\n", err)
-		jsonresponse.NewJsonResponse(c,200706,"")
+		jsonresponse.NewJsonResponse(c,200506,"")
 		return
 	}
 
 	if !has{
 
-		jsonresponse.NewJsonResponse(c,200600,"")
+		jsonresponse.NewJsonResponse(c,200000,"")
 		return
 	}else {
 
-		jsonresponse.NewJsonResponse(c,200600,noteBook)
+		jsonresponse.NewJsonResponse(c,200000,noteBook)
 		return
 	}
 }
@@ -71,7 +71,7 @@ func (nb *NoteBook)GetNoteBook(c *gin.Context){
 // @Summary 获取我的笔记本列表
 // @Description 获取我的笔记本列表
 // @Tags api/v1/notebook
-// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Success 200 {string} string "{"code":200000,"msg": "成功!","data":[]}"
 // @Router /api/v1/notebook [get]
 // @Security
 func (nb *NoteBook)List(c *gin.Context)  {
@@ -81,11 +81,11 @@ func (nb *NoteBook)List(c *gin.Context)  {
 	noteBooks,err := nb.noteBookService.GetList(uid)
 	if err != nil {
 		log.Printf("list err: %s\n", err)
-		jsonresponse.NewJsonResponse(c,200706,"")
+		jsonresponse.NewJsonResponse(c,200506,"")
 		return
 	}
 
-	jsonresponse.NewJsonResponse(c,200600,noteBooks)
+	jsonresponse.NewJsonResponse(c,200000,noteBooks)
 	return
 }
 
@@ -97,7 +97,7 @@ func (nb *NoteBook)List(c *gin.Context)  {
 // @Tags api/v1/notebook
 // @Param notebook_name formData string true "笔记本名"
 // @Param parent_id formData int true "上一级id"
-// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Success 200 {string} string "{"code":200000,"msg": "成功!","data":[]}"
 // @Router /api/v1/notebook/create [post]
 // @Security
 func (nb *NoteBook) CreateNoteBook(c *gin.Context){
@@ -107,7 +107,7 @@ func (nb *NoteBook) CreateNoteBook(c *gin.Context){
 
 	err := c.BindQuery(&noteBook)
 	if err != nil {
-		jsonresponse.NewJsonResponse(c,200700,"")
+		jsonresponse.NewJsonResponse(c,200500,"")
 		return
 	}
 	noteBook.UserId = uid
@@ -116,11 +116,11 @@ func (nb *NoteBook) CreateNoteBook(c *gin.Context){
 	_, err =nb.noteBookService.CreateNoteBook(&noteBook)
 
 	if err != nil {
-		jsonresponse.NewJsonResponse(c,200709,"")
+		jsonresponse.NewJsonResponse(c,200509,"")
 		return
 	}
 
-	jsonresponse.NewJsonResponse(c,200600,noteBook)
+	jsonresponse.NewJsonResponse(c,200000,noteBook)
 	return
 
 }

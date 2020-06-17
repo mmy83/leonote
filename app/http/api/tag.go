@@ -33,7 +33,7 @@ type Tag struct {
 // @Summary 标签列表
 // @Description 标签列表
 // @Tags api/v1/tag
-// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Success 200 {string} string "{"code":200000,"msg": "成功!","data":[]}"
 // @Router /api/v1/tag [get]
 // @Security
 func (n *Tag) List(c *gin.Context){
@@ -42,10 +42,10 @@ func (n *Tag) List(c *gin.Context){
 	tags,err := n.tagService.GetList(uid)
 	if err != nil {
 		log.Printf("list err: %s\n", err)
-		jsonresponse.NewJsonResponse(c,200706,"")
+		jsonresponse.NewJsonResponse(c,200506,"")
 		return
 	}
 
-	jsonresponse.NewJsonResponse(c,200600,tags)
+	jsonresponse.NewJsonResponse(c,200000,tags)
 	return
 }

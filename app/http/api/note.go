@@ -37,7 +37,7 @@ type Note struct {
 // @Description 指定笔记本下的笔记列表
 // @Tags api/v1/note
 // @Param notebook_id query string true "笔记本id"
-// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Success 200 {string} string "{"code":200000,"msg": "成功!","data":[]}"
 // @Router /api/v1/note [get]
 // @Security
 func (n *Note) List(c *gin.Context){
@@ -45,18 +45,18 @@ func (n *Note) List(c *gin.Context){
 	notebookId,_ := strconv.ParseInt(c.Query("notebook_id"),10,64)
 	if notebookId <= 0 {
 		log.Printf("err: 获取数据失败" )
-		jsonresponse.NewJsonResponse(c,200706,"")
+		jsonresponse.NewJsonResponse(c,200506,"")
 		return
 	}
 	uid := jwtauth.GetUidByLoginner(c)
 	notes,err := n.noteService.GetList(uid,notebookId)
 	if err != nil {
 		log.Printf("list err: %s\n", err)
-		jsonresponse.NewJsonResponse(c,200706,"")
+		jsonresponse.NewJsonResponse(c,200506,"")
 		return
 	}
 
-	jsonresponse.NewJsonResponse(c,200600,notes)
+	jsonresponse.NewJsonResponse(c,200000,notes)
 	return
 }
 
@@ -67,7 +67,7 @@ func (n *Note) List(c *gin.Context){
 // @Description 获取指定笔记
 // @Tags api/v1/note
 // @Param id path string true "笔记id"
-// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Success 200 {string} string "{"code":200000,"msg": "成功!","data":[]}"
 // @Router /api/v1/note/:id [get]
 // @Security
 func (n *Note) GetNote(c *gin.Context){
@@ -79,16 +79,16 @@ func (n *Note) GetNote(c *gin.Context){
 	if err!=nil  {
 
 		log.Printf("err: %s\n", err)
-		jsonresponse.NewJsonResponse(c,200706,"")
+		jsonresponse.NewJsonResponse(c,200506,"")
 		return
 	}
 	if !has {
 
-		jsonresponse.NewJsonResponse(c,200600,"")
+		jsonresponse.NewJsonResponse(c,200000,"")
 		return
 	}
 
-	jsonresponse.NewJsonResponse(c,200600,note)
+	jsonresponse.NewJsonResponse(c,200000,note)
 	return
 }
 
@@ -101,7 +101,7 @@ func (n *Note) GetNote(c *gin.Context){
 // @Param title formData string true "笔记标题"
 // @Param tags formData string true "笔记tags"
 // @Param content formData string true "笔记内容"
-// @Success 200 {string} string "{"code":200600,"msg": "成功!","data":[]}"
+// @Success 200 {string} string "{"code":200000,"msg": "成功!","data":[]}"
 // @Router /api/v1/note/create [post]
 // @Security
 func (n *Note) CreateNote(c *gin.Context) {
@@ -112,16 +112,16 @@ func (n *Note) CreateNote(c *gin.Context) {
 	note.UserId = uid
 
 	if err != nil {
-		jsonresponse.NewJsonResponse(c,200700,"")
+		jsonresponse.NewJsonResponse(c,200500,"")
 		return
 	}
 
 	_,err = n.noteService.CreateNote(&note)
 	if err != nil {
-		jsonresponse.NewJsonResponse(c,200709,"")
+		jsonresponse.NewJsonResponse(c,200509,"")
 		return
 	}
 
-	jsonresponse.NewJsonResponse(c,200600,note)
+	jsonresponse.NewJsonResponse(c,200000,note)
 	return
 }
